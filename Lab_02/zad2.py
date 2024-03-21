@@ -1,37 +1,33 @@
 from random import choice
-# import copy
 from zad1 import draw, G
 
 
 def randomize_graph(G):
-    print(G.edges())
     while True:
-        first_edge = choice(list(G.edges()))
-        print(*first_edge)
-        while True:
-            second_edge = choice(list(G.edges()))
-            if second_edge[0] in first_edge or second_edge[1] in first_edge:
-                continue
-            else:
-                break
-        print(*second_edge)
-        G.remove_edge(*second_edge)
-        G.remove_edge(*first_edge)
+        first_edge=choice(list(G.edges()))
+        second_edge=choice(list(G.edges()))
         while second_edge[0] in first_edge or second_edge[1] in first_edge:
-            second_edge = choice(list(G.edges()))
+            second_edge=choice(list(G.edges()))
+        new_first=(min(first_edge[0],second_edge[0]), max(first_edge[0],second_edge[0]))
+        new_second=(min(first_edge[1],second_edge[1]),max(first_edge[1],second_edge[1]))
 
-        new_first = (first_edge[0], first_edge[1])
-        new_second = (second_edge[0], second_edge[1])
         if new_first in list(G.edges()) or new_second in list(G.edges()):
             continue
         else:
             break
-
-    print(first_edge[0], second_edge[0])
-    print(first_edge[1], second_edge[1])
-    G.add_edge(first_edge[0], second_edge[0])
-    G.add_edge(first_edge[1], second_edge[1])
+    G.remove_edge(*first_edge)
+    G.remove_edge(*second_edge)
+    G.add_edge(*new_first)
+    G.add_edge(*new_second)
     return G
 
+    
+    
 
-draw(randomize_graph(G))
+
+it=0
+while True:
+    draw(randomize_graph(G))
+    if it==8:
+        break
+    it+=1
