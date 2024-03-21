@@ -8,7 +8,7 @@ def randomize_graph(G):
     print(*first_edge)
     while True:
         second_edge = choice(list(G.edges()))
-        if second_edge[0] == first_edge[0] or second_edge[0] == first_edge[1] or second_edge[1] == first_edge[1] or second_edge[1] == first_edge[0]:
+        if second_edge[0] in first_edge or second_edge[1] in first_edge:
             continue
         else:
             break
