@@ -4,19 +4,29 @@ from zad1 import draw, G
 
 
 def randomize_graph(G):
-    first_edge = choice(list(G.edges()))
-    print(*first_edge)
+    print(G.edges())
     while True:
-        second_edge = choice(list(G.edges()))
-        if second_edge[0] in first_edge or second_edge[1] in first_edge:
+        first_edge = choice(list(G.edges()))
+        print(*first_edge)
+        while True:
+            second_edge = choice(list(G.edges()))
+            if second_edge[0] in first_edge or second_edge[1] in first_edge:
+                continue
+            else:
+                break
+        print(*second_edge)
+        G.remove_edge(*second_edge)
+        G.remove_edge(*first_edge)
+        while second_edge[0] in first_edge or second_edge[1] in first_edge:
+            second_edge = choice(list(G.edges()))
+
+        new_first = (first_edge[0], first_edge[1])
+        new_second = (second_edge[0], second_edge[1])
+        if new_first in list(G.edges()) or new_second in list(G.edges()):
             continue
         else:
             break
-    print(*second_edge)
-    while second_edge[0] in first_edge or second_edge[1] in first_edge:
-        second_edge = choice(list(G.edges()))
-    G.remove_edge(*second_edge)
-    G.remove_edge(*first_edge)
+
     print(first_edge[0], second_edge[0])
     print(first_edge[1], second_edge[1])
     G.add_edge(first_edge[0], second_edge[0])
