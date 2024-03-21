@@ -6,7 +6,12 @@ from zad1 import draw, G
 def randomize_graph(G):
     first_edge = choice(list(G.edges()))
     print(*first_edge)
-    second_edge = choice(list(G.edges()))
+    while True:
+        second_edge = choice(list(G.edges()))
+        if second_edge[0] == first_edge[0] or second_edge[0] == first_edge[1] or second_edge[1] == first_edge[1] or second_edge[1] == first_edge[0]:
+            continue
+        else:
+            break
     print(*second_edge)
     while second_edge[0] in first_edge or second_edge[1] in first_edge:
         second_edge = choice(list(G.edges()))
