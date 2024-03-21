@@ -21,6 +21,7 @@ def create_graph(A):
     G = nx.Graph()
 
     if degree_seq(A):
+        A.sort(reverse=True)
         G.add_nodes_from(range(len(A)))
         for i in range(len(A)):
             for j in range(i + 1, len(A)):
@@ -36,7 +37,7 @@ def create_graph(A):
 def draw(G):
     global counter
     if G:
-        nx.draw(G, with_labels=True, font_weight='bold')
+        nx.draw_circular(G, with_labels=True, font_weight='bold')
         filename = "graph" + str(counter) + ".png"
         plt.savefig(filename)
         plt.close()
