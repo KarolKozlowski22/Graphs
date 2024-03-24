@@ -1,4 +1,4 @@
-from zad2 import G
+from zad1 import G
 
 
 def bfs(G, node):
