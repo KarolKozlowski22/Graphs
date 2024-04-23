@@ -22,12 +22,5 @@ def randomize_graph(G):
     return G
 
 
-#
-# it = 0
-# while True:
-#     draw(randomize_graph(G))
-#     if it == 8:
-#         break
-#     it += 1
 
 draw(randomize_graph(G))

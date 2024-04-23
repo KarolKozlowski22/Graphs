@@ -1,14 +1,6 @@
 import networkx as nx
 from matplotlib import pyplot as plt
 from networkx import draw_circular
-"""
-Napisać program do sprawdzania (dla małych grafów), czy graf jest
-hamiltonowski.
-
-Cykl Hamiltona – zamknięta ścieżka zawierająca każdy wierzchołek
-dokładnie 1 raz (poza startowym, który występuje dwukrotnie)
-"""
-
 
 def dfs(graph, current, visited):
     if len(visited) == len(graph.nodes):

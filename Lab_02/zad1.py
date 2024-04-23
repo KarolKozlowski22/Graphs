@@ -39,7 +39,8 @@ def draw(G):
     if G:
         nx.draw_circular(G, with_labels=True, font_weight='bold')
         filename = "graph" + str(counter) + ".png"
-        plt.savefig(filename)
+        # plt.savefig(filename)
+        plt.show()
         plt.close()
     else:
         print("Nie powstal graf poniewaz to nie byl ciag graficzny")
