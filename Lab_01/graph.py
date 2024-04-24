@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import networkx as nx
 from converter import convert_adjacency_matrix_to_adjacency_list, convert_incidence_matrix_to_adjacency_list
 
 
@@ -29,24 +30,18 @@ class Graph:
             graph = convert_adjacency_matrix_to_adjacency_list(self.graph)
         elif self.representation_type == "IM":
             graph = convert_incidence_matrix_to_adjacency_list(self.graph)
-        num_nodes = len(graph)
 
-        theta = np.linspace(0, 2*np.pi, num_nodes, endpoint=False)
-        x = np.cos(theta)
-        y = np.sin(theta)
-
-        plt.figure(figsize=(8, 8))
-
-        plt.scatter(x, y, c='skyblue', s=630, edgecolors='black', zorder=2)
-        for i in range(num_nodes):
-            plt.text(x[i], y[i], str(i + 1), color='black', fontsize=10, ha='center', va='center', zorder=3)
+        G = nx.Graph()
 
         for node, neighbors in enumerate(graph):
-            for neighbor in neighbors:
-                plt.plot([x[node], x[neighbor - 1]], [y[node], y[neighbor - 1]], color='black', linewidth=1, zorder=1)
+            for neighbor, is_neighbor in enumerate(neighbors):
+                if is_neighbor:
+                    G.add_edge(node, neighbor)
+            print(' ')
 
-        plt.axis('equal')
-        plt.axis('off')
+        pos = nx.circular_layout(G)
+
+        nx.draw(G, pos, with_labels=True, node_size=700, node_color='skyblue', font_size=10, font_weight='bold', edge_color='gray', width=2)
 
         if save:
             plt.savefig("graph.png")
@@ -75,3 +70,4 @@ class RandomGraph(Graph):
         with open("random_graph", "w") as file:
             for row in self.graph:
                 file.write(" ".join(map(str, row)) + "\n")
+
