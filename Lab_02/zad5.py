@@ -1,12 +1,10 @@
 import networkx as nx
-from zad1 import draw
+from Lab_02.zad1 import draw
 from collections import defaultdict
 import numpy as np
 
 
-
 def random_regular_graph(d, n, seed=None):
-
     if (n * d) % 2 != 0:
         raise nx.NetworkXError("n * d must be even")
 
@@ -49,7 +47,7 @@ def random_regular_graph(d, n, seed=None):
                     potential_edges[s2] += 1
 
             if not _suitable(edges, potential_edges):
-                return None  
+                return None
 
             stubs = [
                 node
@@ -68,14 +66,8 @@ def random_regular_graph(d, n, seed=None):
     return G
 
 
-n = 10  
-k = 3   
+n = 10
+k = 3
 
-G = random_regular_graph(k,n, seed=np.random.default_rng())
+G = random_regular_graph(k, n, seed=np.random.default_rng())
 draw(G)
-
-
-
-
-
-

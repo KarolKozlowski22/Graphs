@@ -1,6 +1,5 @@
 import networkx as nx
 import numpy as np
-from zad1 import gen_connected_graph_with_wages
 
 """
 Wyznaczyć minimalne drzewo rozpinające (algorytm Prima lub Kruskala).

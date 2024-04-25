@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from networkx import draw_circular
 
-from Lab_02.zad5 import generate_k_degree_regular_graph
+from Lab_02.zad5 import random_regular_graph
 
 """
 Korzystając z programów z poprzednich zestawów wygenerować spójny
@@ -15,7 +15,7 @@ liczbą naturalną z zakresu 1 do 10.
 
 
 def gen_connected_graph_with_wages(n, k):
-    graph = generate_k_degree_regular_graph(n, k)
+    graph = random_regular_graph(k, n, seed=np.random.default_rng())
     edge_weights = {}
     weight_matrix = np.full((n, n), 0)
     for u, v in graph.edges():

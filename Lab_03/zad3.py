@@ -1,6 +1,5 @@
 import numpy as np
 from zad2 import dijkstra
-from zad1 import gen_connected_graph_with_wages
 
 """
  Wyznaczyć macierz odległości miedzy wszystkimi parami wierzchołków
