@@ -39,8 +39,8 @@ def draw(G):
     if G:
         nx.draw_circular(G, with_labels=True, font_weight='bold')
         filename = "graph" + str(counter) + ".png"
-        # plt.savefig(filename)
-        plt.show()
+        plt.savefig(filename)
+        # plt.show()
         plt.close()
     else:
         print("Nie powstal graf poniewaz to nie byl ciag graficzny")
@@ -48,7 +48,14 @@ def draw(G):
 
 
 counter = 1
-A = [1, 3, 2, 3, 2, 4, 1]
+
+A=[2,2,2,2,2,2,2]
+A=[3,3,4,4,4,3,3,4,4,1,1,2]
+# A=[4,4,4,3,3]
+# A=[4,2,2,3,2,1,4,2,2,2,2]
 # A = [4, 3, 3, 2, 2]
+A=[7,6,6,4,3,3,3,2]
+A=[4,4,4,4,4,3,3,3,3,3,5]
+A=[6,6,6,4,4,2,4,2]
 G = create_graph(A)
 draw(G)

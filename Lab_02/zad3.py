@@ -1,4 +1,5 @@
-from zad1 import G
+from zad1 import G, draw
+from zad2 import randomize_graph
 
 
 def bfs(G, node):
@@ -25,6 +26,8 @@ def coherent_G_el(G):
             visited.update(curr_coherent)
     return coherent_list_of_all
 
+G=randomize_graph(G)
+draw(G)
 
 coherent_list_of_all = coherent_G_el(G)
 print(coherent_list_of_all)

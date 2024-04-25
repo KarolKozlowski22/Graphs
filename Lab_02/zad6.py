@@ -1,6 +1,7 @@
 import networkx as nx
 from matplotlib import pyplot as plt
 from networkx import draw_circular
+from zad1 import G
 
 def dfs(graph, current, visited):
     if len(visited) == len(graph.nodes):
@@ -33,10 +34,11 @@ def hamiltonian_cycle(graph: nx.Graph):
     return False
 
 
-G2 = nx.Graph()
-G2.add_edges_from([(1, 3), (1, 5), (1, 6), (2, 6), (2, 4), (2, 5), (3, 5), (4, 5)])
-draw_circular(G2, with_labels=True)
+# G2 = nx.Graph()
+# G2.add_edges_from([(1, 3), (1, 5), (1, 6), (2, 6), (2, 4), (2, 5), (3, 5), (4, 5)])
+
+draw_circular(G, with_labels=True)
 plt.show()
-cycle = hamiltonian_cycle(G2)
+cycle = hamiltonian_cycle(G)
 if cycle:
     print("Cykl Hamiltona: ", cycle)

@@ -1,5 +1,5 @@
 import networkx as nx
-from Lab_02.zad1 import draw
+from zad1 import draw
 from collections import defaultdict
 import numpy as np
 
@@ -66,8 +66,8 @@ def random_regular_graph(d, n, seed=None):
     return G
 
 
-n = 10
-k = 3
+n = 9
+k = 7
 
 G = random_regular_graph(k, n, seed=np.random.default_rng())
 draw(G)

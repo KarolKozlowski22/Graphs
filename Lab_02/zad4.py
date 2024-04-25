@@ -50,7 +50,7 @@ n=random.randint(3,20)
 while n%2!=0:
     n=random.randint(3,20)
 
-# for i in range(20):
+n=8
 G=create_eulerian_graph(n)
 draw(G)
 if is_eulerian(G):

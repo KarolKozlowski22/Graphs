@@ -1,8 +1,8 @@
-from Lab_03.zad3 import gen_distance_matrix
-from Lab_03.zad1 import gen_connected_graph_with_wages
-from Lab_03.zad2 import dijkstra
-from Lab_03.zad4 import get_centrum, get_centrum_minimax
-from Lab_03.zad5 import prim, kruskal
+from zad3 import gen_distance_matrix
+from zad1 import gen_connected_graph_with_wages
+from zad2 import dijkstra
+from zad4 import get_centrum, get_centrum_minimax
+from zad5 import prim, kruskal
 
 
 def main():

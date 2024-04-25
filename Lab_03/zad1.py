@@ -5,7 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from networkx import draw_circular
 
-from Lab_02.zad5 import random_regular_graph
+from zad5 import random_regular_graph
 
 """
 Korzystając z programów z poprzednich zestawów wygenerować spójny

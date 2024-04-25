@@ -23,4 +23,6 @@ def randomize_graph(G):
 
 
 
-draw(randomize_graph(G))
+# for i in range(100):
+#     G=randomize_graph(G)
+# draw(G)
