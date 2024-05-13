@@ -69,7 +69,7 @@ def add_edges(G, N, nodes):
                 G.add_edge(nodes[choosen_cluster][choosen_node_from], nodes[choosen_cluster+extra_add][choosen_node_to], capacity=random.randrange(1,11))
                 break
 
-def graph_visualization(G, nodes):
+def graph_visualization(G, nodes, name):
     positions = {}
     for i in range(len(nodes)):
         for j in range(len(nodes[i])):
@@ -77,11 +77,12 @@ def graph_visualization(G, nodes):
     nx.draw_networkx(G, positions)
     labels = nx.get_edge_attributes(G, "capacity")
     nx.draw_networkx_edge_labels(G, positions, labels, label_pos=0.6)
+    plt.savefig(name)
     plt.show()
 
 def main1(G, N, nodes):
     G, nodes = graph_creation(G, N, nodes)
     add_edges(G, N, nodes)
-    graph_visualization(G, nodes)
+    graph_visualization(G, nodes, 'zad1.png')
 
 
