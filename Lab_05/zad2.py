@@ -27,7 +27,15 @@ def ford_fulkerson_mine(G, s, t):
                     ps[u] = v
                     Q.append(u)
                     if u == t:
-                        return True, ds, ps
+                        ps = dict(reversed(list(ps.items())))
+                        ps_true = {}
+                        k = t
+                        while True:
+                            ps_true[k] = ps[k]
+                            k = ps[k]
+                            if k == 0:
+                                break
+                        return True, ds, ps_true
         return False, ds, ps
     
     def build_residual_network(G, f):
@@ -58,7 +66,10 @@ def ford_fulkerson_mine(G, s, t):
             else:
                 f[(v, u)] -= min_flow
     
-    return f
+    fmax = 0
+    for u in G[0]:
+        fmax += f[(0,u)]
+    return f, fmax
 
 def graph_visualization_2(G, nodes, max_flow):
     for u, v in max_flow:
@@ -67,8 +78,6 @@ def graph_visualization_2(G, nodes, max_flow):
     
 
 def main2(G, nodes):
-    max_flow = ford_fulkerson_mine(G, 0, nodes[-1][-1])
-    flow_value, flow_dict = nx.algorithms.flow.maximum_flow(G, 0, nodes[-1][-1])
-    print(max_flow)
-    print(flow_dict)
-    graph_visualization_2(G, nodes, max_flow)
+    flow, max_flow = ford_fulkerson_mine(G, 0, nodes[-1][-1])
+    print('Maksymalny przeplyw: ', max_flow)
+    graph_visualization_2(G, nodes, flow)
