@@ -6,7 +6,12 @@ from zad1 import graph_visualization
 
 def ford_fulkerson_mine(G, s, t):
     def cf(u, v):
-        return G[u][v]['capacity'] - f[(u, v)]
+        if (u, v) in G.edges():
+            return G[u][v]['capacity'] - f[(u, v)]
+        if (v, u) in G.edges():
+            return f[(v, u)]
+        else:
+            return 0
     
     def bfs(Gf, s, t):
         Q = deque()
@@ -25,10 +30,25 @@ def ford_fulkerson_mine(G, s, t):
                         return True, ds, ps
         return False, ds, ps
     
+    def build_residual_network(G, f):
+        Gf = nx.DiGraph()
+        for n in G.nodes():
+            Gf.add_node(n)
+        for (u, v) in G.edges():
+            if f[(u, v)] == 0:
+                Gf.add_edge(u, v, capacity=G[u][v]['capacity'])
+            elif f[(u, v)] == G[u][v]['capacity']:
+                Gf.add_edge(v, u, capacity=G[u][v]['capacity'])
+            else:
+                Gf.add_edge(u, v, capacity=(G[u][v]['capacity'] - f[(u, v)]))
+                Gf.add_edge(v, u, capacity=f[(u, v)])
+        return Gf
+
     f = {(u, v): 0 for u, v in G.edges()}
 
     while True:
-        path_exists, ds, parent = bfs(G, s, t)
+        Gf = build_residual_network(G, f)
+        path_exists, ds, parent = bfs(Gf, s, t)
         if not path_exists:
             break
         min_flow = min(cf(u, v) for u, v in zip(parent.values(), parent.keys()))
