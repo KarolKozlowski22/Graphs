@@ -51,10 +51,11 @@ def kosoraju_algorithm(G):
     results = defaultdict(list)
     for i, el in enumerate(comp):
         results[el].append(i)
-    
-    print(results)
+
+    return results
 
 if __name__ == "__main__":
     G = zad1.directed_graph(5, 0.3)
     zad1.draw(G, 5)
-    kosoraju_algorithm(G)
+    result_dict = kosoraju_algorithm(G)
+    print(result_dict)
