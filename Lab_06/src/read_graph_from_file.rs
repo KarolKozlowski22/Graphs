@@ -33,7 +33,11 @@ pub fn read_graph_from_file(filename: &str) -> io::Result<DiGraph<(), ()>> {
         let src_node = *node_map.iter().find(|(_, &ref v)| v == src_label).unwrap().0;
 
         for dest_label in dest_labels {
-            let dest_node = *node_map.iter().find(|(_, &ref v)| v == dest_label).unwrap().0;
+            let dest_node = node_map.iter().find(|(_, &ref v)| v == dest_label);
+            if dest_node.is_none() {
+                continue;
+            }
+            let dest_node = *dest_node.unwrap().0;
             graph.add_edge(dest_node, src_node, ());
         }
     }

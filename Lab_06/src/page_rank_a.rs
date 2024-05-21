@@ -3,7 +3,7 @@ use petgraph::visit::IntoNodeReferences;
 use rand::prelude::*;
 use std::collections::HashMap;
 
-pub fn page_rank(graph: &DiGraph<(), ()>, d: f64, iterations: usize, num_walks: usize) -> Vec<(String, f64)> {
+pub fn page_rank_a(graph: &DiGraph<(), ()>, d: f64, iterations: usize, num_walks: usize) -> Vec<(String, f64)> {
     let mut rng = thread_rng();
     let mut visit_count = vec![0; graph.node_count()];
     let nodes: Vec<NodeIndex> = graph.node_indices().collect();
