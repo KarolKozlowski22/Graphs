@@ -4,6 +4,7 @@
 # Bellmana-Forda do znajdowania najkrótszych ścieżek od danego wierzchołka.
 
 from zad1 import directed_graph, print_graph, draw
+from zad2 import DFS, kosoraju_algorithm
 from random import randint
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -29,11 +30,11 @@ def draw_with_wages(G, log=True):
         print_graph(graph_with_wages)
 
 
-def add_wages(graph, rand_start=5, rand_end=10):
-    new_graph = [[] for _ in range(len(graph))]
-    for i, row in enumerate(graph):
+def add_wages(graph, rand_start = -2, rand_end = 10):
+    new_graph = [[] for _ in range(len(graph))]  
+    for i, row in enumerate(graph):  
         for j, e in enumerate(row):
-            random_value = randint(rand_start, rand_end)
+            random_value = randint(rand_start, rand_end)  
             new_graph[i].append((e, random_value))
     return new_graph
 
@@ -51,11 +52,14 @@ def Bellman_Ford(G, s):
 
 
 if __name__ == "__main__":
-    n = 8
+    n = 5
     p = 0.2
-    s = 5
+    s = 4
 
     graph = directed_graph(n, p)
+    while(kosoraju_algorithm(graph) != 1):
+        graph = directed_graph(n, p)           #generowanie silnie spojnego
+
     graph_with_wages = add_wages(graph)
     print(f"\nStart vertex: [(end vertex, distance)] ")
     draw_with_wages(graph_with_wages)

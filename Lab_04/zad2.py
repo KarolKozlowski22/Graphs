@@ -57,9 +57,10 @@ def kosoraju_algorithm(G):
         results[el].append(i)
 
     print(results)
+    return len(results) == 1
 
 
 if __name__ == "__main__":
     G = zad1.directed_graph(5, 0.3)
-    zad1.draw(G, 5)
+    zad1.draw(G)
     kosoraju_algorithm(G)

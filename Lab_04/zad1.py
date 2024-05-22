@@ -25,8 +25,11 @@ def draw(G):
     n = len(G)
     graph = nx.DiGraph() 
     for i in range(n):
+        graph.add_node(i)
+    for i in range(n):
         for j in G[i]:
             graph.add_edge(i, j)  # dodanie krawedzi z i do j
+    pos = nx.spring_layout(graph) 
     nx.draw(graph, with_labels=True, font_weight="bold")
     filename = "graph" + ".png"
     plt.savefig(filename)
@@ -35,7 +38,7 @@ def draw(G):
 
 if __name__ == "__main__":
     n = 5         #ilosc wierzcholkow
-    p = 0.3       #prawdopodobienstwo 
+    p = 0.4      #prawdopodobienstwo 
     G = directed_graph(n, p)
     print_graph(G)      #wypisanie listy sasiedztwa
     draw(G)
