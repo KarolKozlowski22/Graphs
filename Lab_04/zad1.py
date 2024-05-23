@@ -9,7 +9,7 @@ def directed_graph(n, p):
         graph.append([]) # pusta lista sąsiedztwa dla wierzcholka
         for j in range(n):
             if i != j:
-                rand = random.random()  # losowanie liczby z przedzialu [0, 1)
+                rand = random.random()  # losowanie liczby z przedzialu 0, 1
                 if rand < p: 
                     graph[i].append(j)   # dodanie krawedzi jesli wylosowana liczba jest mniejsza od p
         graph[i] = tuple(graph[i]) 

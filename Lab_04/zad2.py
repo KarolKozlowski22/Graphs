@@ -7,12 +7,12 @@ t = 0
 def DFS(G, v, visited, performed):
     global t
     t = t + 1
-    visited[v] = t 
+    visited[v] = t #v odwiedzone
     for i in G[v]:
         if visited[i] == -1:  
-            DFS(G, i, visited, performed) 
-    t = t + 1
-    performed[v] = t
+            DFS(G, i, visited, performed) #dfs na sąsiadach v
+    t = t + 1 
+    performed[v] = t 
 
 
 def transform_graph(G):
@@ -36,15 +36,15 @@ def kosoraju_algorithm(G):
 
     for i in range(len(G)):
         if visited[i] == -1:
-            DFS(G, i, visited, performed)
+            DFS(G, i, visited, performed) 
 
     G_t = transform_graph(G)
 
     n = 0
     comp = [-1] * len(G) 
 
-    performed = [(x, i) for i, x in enumerate(performed)]
-    performed.sort(reverse=True, key=lambda x: x[0]) 
+    performed = [(x, i) for i, x in enumerate(performed)]  #czas przetworzenia, indeks
+    performed.sort(reverse=True, key=lambda y: y[0]) # sortowanie po czasie przetworzenia (malejąco)
 
     for val, i in performed:
         if comp[i] == -1:
@@ -52,9 +52,9 @@ def kosoraju_algorithm(G):
             comp[i] = n
             components(n, i, G_t, comp)
 
-    results = defaultdict(list)
+    results = defaultdict(list) #pusty slownik
     for i, el in enumerate(comp):
-        results[el].append(i)
+        results[el].append(i) #el to numer składowej, i to wierzchołek
 
     print(results)
     return len(results) == 1
