@@ -10,7 +10,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-def draw_with_wages(G, log=True):
+def draw_with_wages(G):
     n = len(G)
     graph = nx.DiGraph()
     for i in range(n):
@@ -18,7 +18,7 @@ def draw_with_wages(G, log=True):
             graph.add_edge(i, j, weight=wage)
 
     pos = nx.spring_layout(graph)
-    edge_labels = nx.get_edge_attributes(graph, "weight")
+    edge_labels = nx.get_edge_attributes(graph, "weight") # pobranie wag 
     nx.draw(graph, pos, with_labels=True)
     nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
 
@@ -26,26 +26,25 @@ def draw_with_wages(G, log=True):
     plt.savefig(filename)
     plt.close()
 
-    if log:
-        print_graph(graph_with_wages)
+    print_graph(graph_with_wages)
 
 
 def add_wages(graph, rand_start = -2, rand_end = 10):
     new_graph = [[] for _ in range(len(graph))]  
-    for i, row in enumerate(graph):  
-        for j, e in enumerate(row):
+    for i, row in enumerate(graph):  #i - numer wierzcholka, row - lista sasiedztwa
+        for j, e in enumerate(row):  #j - numer sasiada, e - sasiad
             random_value = randint(rand_start, rand_end)  
-            new_graph[i].append((e, random_value))
+            new_graph[i].append((e, random_value)) #dodanie wag
     return new_graph
 
 
 def Bellman_Ford(G, s):
     n = len(G)
     d = [float("inf") for _ in range(n)]
-    d[s] = 0
+    d[s] = 0 #dystans od wierzcholka do samego siebie
     for _ in range(n - 1):
         for u in range(n):
-            for v, w in G[u]:
+            for v, w in G[u]: 
                 if d[u] + w < d[v]:
                     d[v] = d[u] + w
     return d
