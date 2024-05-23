@@ -1,70 +1,66 @@
+import zad1
 from collections import defaultdict
-from zad1 import adj_matrix
-import numpy as np
 
-def DFS_visit(v, graph, d, f, t, stack):
-    t[0] += 1
-    d[v] = t[0]
-    for u in graph[v]:
-        if d[u] == -1:
-            DFS_visit(u, graph, d, f, t, stack)
-    t[0] += 1
-    f[v] = t[0]
-    stack.append(v)
+t = 0
 
-def components_r(nr, v, new_graph, comp):
-    comp[v] = nr
-    for u in new_graph[v]:
-        if comp[u] == -1:
-            components_r(nr, u, new_graph, comp)
 
-def kosaraju_algorithm(adj_matrix):
-    n = len(adj_matrix)
-    graph = defaultdict(list)
-    for i in range(n):
-        for j in range(n):
-            if adj_matrix[i][j] == 1:
-                graph[i].append(j)
+def DFS(G, v, visited, performed):
+    global t
+    t = t + 1
+    visited[v] = t 
+    for i in G[v]:
+        if visited[i] == -1:  
+            DFS(G, i, visited, performed) 
+    t = t + 1
+    performed[v] = t
 
-    d = defaultdict(lambda: -1)
-    f = defaultdict(int)
-    t = [0]
-    stack = []
 
-    print(graph)
-    for v in range(n):
-        if d[v] == -1:
-            DFS_visit(v, graph, d, f, t, stack)
-    print(stack)
-    new_graph = defaultdict(list)
-    for i in range(n):
-        for j in range(n):
-            if adj_matrix[j][i] == 1:
-                new_graph[i].append(j)
+def transform_graph(G):
+    G_t = [[] for _ in range(len(G))]
+    for i in range(len(G)):
+        for j in G[i]:
+            G_t[j].append(i)
+    return G_t
 
-    comp = defaultdict(lambda: -1)
-    nr = 0
-    while stack:
-        v = stack.pop()
-        if comp[v] == -1:
-            nr += 1
-            components_r(nr, v, new_graph, comp)
 
-    print(comp.items()[0])
-    # strongly_connected_comp=[]
-    # current_comp=[]
-    # current_comp.append(comp.items()[0][0])
-    # prev_val=comp.items()[0][1]
+def components(n, i, G, comp):
+    for j in G[i]:
+        if comp[j] == -1:
+            comp[j] = n 
+            components(n, j, G, comp)
 
-    # for key, val in comp.items()[1:]:
-    #     if val==prev_val:
-    #         current_comp.append(key)
-    #     else:
-    #         strongly_connected_comp.append(current_comp)
-    #         current_comp=[]
 
-    # return strongly_connected_comp
+def kosoraju_algorithm(G):
+    visited = [-1] * len(G) # wierzchołek nie był odwiedzony 
+    performed = [-1] * len(G) # wierzchołek nie był przetworzony
 
-result = kosaraju_algorithm(adj_matrix)
-print(result)
+    for i in range(len(G)):
+        if visited[i] == -1:
+            DFS(G, i, visited, performed)
 
+    G_t = transform_graph(G)
+
+    n = 0
+    comp = [-1] * len(G) 
+
+    performed = [(x, i) for i, x in enumerate(performed)]
+    performed.sort(reverse=True, key=lambda x: x[0]) 
+
+    for val, i in performed:
+        if comp[i] == -1:
+            n = n + 1
+            comp[i] = n
+            components(n, i, G_t, comp)
+
+    results = defaultdict(list)
+    for i, el in enumerate(comp):
+        results[el].append(i)
+
+    print(results)
+    return len(results) == 1
+
+
+if __name__ == "__main__":
+    G = zad1.directed_graph(5, 0.3)
+    zad1.draw(G)
+    kosoraju_algorithm(G)

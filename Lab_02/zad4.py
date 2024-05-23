@@ -1,31 +1,32 @@
 import networkx as nx
-from matplotlib import pyplot as plt
-from networkx import draw_circular, is_eulerian
-
-from zad1 import create_graph, draw
-import random
-
-"""
-Używając powyższych programów napisać program do tworzenia losowego grafu eulerowskiego i znajdowania na nim
-cyklu Eulera
-"""
+from networkx import is_eulerian
+from zad1 import draw
+import random 
 
 
-# Nie dziala poprawnie dla wylosowanego grafu
-def create_euler_graph():
-    num_nodes = random.randint(6, 10)
-    A = []
-    for i in range(num_nodes):
-        A.append(random.choice([2, 4, 6]))
-    print(A)
-    G = create_graph(A)
-    draw_circular(G, with_labels=True)
+def create_eulerian_graph(n):
+    G=nx.Graph()
+    if n % 2 != 0:
+        raise ValueError("Liczba wierzchołków musi być parzysta, aby stworzyć graf eulerowski")
+    
+    adj_list = {i: [(i + 1) % n, (i - 1 + n) % n] for i in range(n)}
+    
+    if n > 2:
+        for i in range(n):
+            for j in range(2, n // 2):
+                adj_list[i].append((i + j) % n)
+                adj_list[i].append((i - j + n) % n)
+    
+    for key in adj_list:
+        adj_list[key] = list(set(adj_list[key]))
 
+    for i in range(len(adj_list)):
+        for j in range(len(adj_list[i])):
+            G.add_edge(i, adj_list[i][j])
+
+    return G
 
 def fleurys_algorithm(graph):
-    if not is_eulerian(graph):
-        return "Graf nie jest eulerowski"
-
     current_node = 0
     neighbors = list(graph.neighbors(current_node))
     next_node = neighbors.pop()
@@ -44,17 +45,21 @@ def fleurys_algorithm(graph):
 
     return euler_cycle
 
-# Dla tego grafu dziala dobrze
-graph = {
-    0: [1, 2],
-    1: [0, 2, 3, 4],
-    2: [0, 1, 3, 4],
-    3: [1, 2],
-    4: [2]
-}
 
-G = nx.Graph(graph)
-draw_circular(G, with_labels=True)
-plt.show()
+n=random.randint(3,20)
+while n%2!=0:
+    n=random.randint(3,20)
+
+n=8
+G=create_eulerian_graph(n)
+draw(G)
+if is_eulerian(G):
+    print("Graf jest eulerowski")
+else:
+    print("Graf nie jest eulerowski")
+    # break
+
 euler_cycle = fleurys_algorithm(G)
-print("Cykl Eulera:", euler_cycle)
+print(euler_cycle)
+
+

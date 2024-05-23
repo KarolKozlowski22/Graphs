@@ -1,0 +1,11 @@
+[package]
+name = "Lab_06"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+petgraph = "^0.6.0"
+rand = "^0.8"
+
+[profile.dev]
+incremental = false
