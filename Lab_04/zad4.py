@@ -25,24 +25,13 @@ def draw_graph_with_weights(G, filename):
     pos = nx.shell_layout(G)
     nx.draw(G, pos, with_labels=True, font_weight='bold')
 
-    # Draw edges with different styles and labels for each direction
-    # edge_labels = nx.get_edge_attributes(G, 'weight')
     for (u, v, d) in G.edges(data=True):
-        if 'weight' in d:
-            if G.has_edge(v, u):
-                nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], arrowstyle='->',
-                                       arrowsize=20, edge_color='black')
-                nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): d['weight']}, label_pos=0.2,
-                                             font_color='blue')
-            else:
-                nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], arrowstyle='->',
-                                       arrowsize=20, edge_color='black')
-                nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): d['weight']}, label_pos=0.2,
-                                             font_color='blue')
-
+        nx.draw_networkx_edges(G, pos, edgelist=[(u, v)], arrowstyle='->',
+                               arrowsize=20, edge_color='black')
+        nx.draw_networkx_edge_labels(G, pos, edge_labels={(u, v): d['weight']}, label_pos=0.2,
+                                     font_color='blue')
     plt.savefig(filename)
     plt.close()
-
 
 def add_s(G):
     G_prim = G.copy()
